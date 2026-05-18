@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagamento Cartão — Lene Salgados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <style>
+  :root {
+    --violet:   #FF9F1C;
+    --violet2:  #FFD166;
+    --blue:     #FFE29A;
+    --cyan:     #FFD166;
+    --pink:     #FFB347;
+    --amber:    #FFB347;
+    --green:    #FFC46B;
+    --noir:     #1F140B;
+    --noir2:    #26180E;
+    --noir3:    #2E1D10;
+    --noir4:    #382414;
+    --text:     #FFF8F0;
+    --muted:    #D7B37A;
+    --border:   rgba(255,159,28,.12);
+    --glow:     0 0 20px rgba(255,159,28,.4);
+    --ease:     cubic-bezier(.22,1,.36,1);
+    --r:        18px;
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  html { font-size:16px; scroll-behavior:smooth; }
+
+  body {
+    font-family:'Exo 2', sans-serif;
+    background:var(--noir);
+    color:var(--text);
+    min-height:100vh;
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:40px 16px 80px;
+    overflow-x:hidden;
+    cursor:crosshair;
+  }
+
+  #bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  body::after {
+    content:''; position:fixed; inset:0; z-index:1;
+    background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,159,28,.012) 2px, rgba(255,159,28,.012) 4px);
+    pointer-events:none;
+  }
+  body::before {
+    content:''; position:fixed; inset:0; z-index:1;
+    background:radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, rgba(3,2,8,.9) 100%);
+    pointer-events:none;
+  }
+
+  /* ═══ CARD ═══ */
+  .card {
+    position:relative; z-index:10;
+    width:100%; max-width:500px;
+    background:linear-gradient(160deg, rgba(6,4,16,.97) 0%, rgba(10,6,24,.97) 100%);
+    border-radius:28px; border:1px solid rgba(255,159,28,.18);
+    overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,159,28,.05) inset, 0 40px 80px rgba(0,0,0,.9), 0 0 60px rgba(255,159,28,.06);
+    animation:riseUp .8s var(--ease) both;
+  }
+  @keyframes riseUp { from{opacity:0;transform:translateY(60px) scale(.96);} to{opacity:1;transform:translateY(0) scale(1);} }
+
+  .card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent 0%, var(--violet) 25%, var(--cyan) 50%, var(--pink) 75%, transparent 100%);
+    animation:borderPulse 3s ease-in-out infinite; z-index:3;
+  }
+  @keyframes borderPulse { 0%,100%{opacity:.7;} 50%{opacity:1; box-shadow:0 0 20px var(--violet);} }
+
+  .corner{position:absolute;width:20px;height:20px;z-index:4;}
+  .corner.tl{top:8px;left:8px;border-top:2px solid var(--violet);border-left:2px solid var(--violet);}
+  .corner.tr{top:8px;right:8px;border-top:2px solid var(--violet);border-right:2px solid var(--violet);}
+  .corner.bl{bottom:8px;left:8px;border-bottom:2px solid var(--pink);border-left:2px solid var(--pink);}
+  .corner.br{bottom:8px;right:8px;border-bottom:2px solid var(--pink);border-right:2px solid var(--pink);}
+
+  /* ═══ HEADER ═══ */
+  .card-header {
+    padding:44px 32px 36px; text-align:center;
+    position:relative; border-bottom:1px solid rgba(255,159,28,.1); overflow:hidden;
+  }
+  .card-header::after {
+    content:''; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+    width:300px; height:300px;
+    background:radial-gradient(circle, rgba(255,159,28,.08) 0%, transparent 70%);
+    pointer-events:none;
+  }
+
+  .logo-system { position:relative; display:inline-block; margin-bottom:20px; width:110px; height:110px; }
+  .ring { position:absolute; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); }
+  .ring-1 { width:140px;height:140px; border:1px solid rgba(255,159,28,.22); animation:spinCW 12s linear infinite; }
+  .ring-2 { width:124px;height:124px; border:1px dashed rgba(255,209,102,.2); animation:spinCCW 9s linear infinite; }
+  .ring-3 { width:108px;height:108px; border:1px solid rgba(255,179,71,.15); animation:spinCW 16s linear infinite; }
+  .ring-1::after { content:'★'; position:absolute; top:-8px; left:50%; transform:translateX(-50%); font-size:.6rem; color:var(--violet); }
+  .ring-2::after { content:'◇'; position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); font-size:.55rem; color:var(--cyan); }
+  @keyframes spinCW  { to { transform:translate(-50%,-50%) rotate(360deg); } }
+  @keyframes spinCCW { to { transform:translate(-50%,-50%) rotate(-360deg); } }
+
+  .logo-core {
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:92px; height:92px; border-radius:50%;
+    border:2px solid rgba(255,159,28,.45);
+    overflow:hidden; z-index:2;
+    box-shadow:0 0 0 4px rgba(255,159,28,.08), 0 0 30px rgba(255,159,28,.2);
+    background:var(--noir3);
+  }
+  .logo-core img { width:100%; height:100%; object-fit:cover; }
+  .logo-fallback-core {
+    width:92px;height:92px;border-radius:50%;
+    background:var(--noir3); border:2px solid rgba(255,159,28,.45);
+    display:flex;align-items:center;justify-content:center;
+    font-size:2.4rem; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); z-index:2;
+    box-shadow:0 0 30px rgba(255,159,28,.2);
+  }
+
+  .header-brand {
+    font-family:'Orbitron', monospace; font-size:1.6rem; font-weight:900; letter-spacing:.08em;
+    background:linear-gradient(135deg, var(--violet) 0%, var(--cyan) 50%, var(--pink) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    filter:drop-shadow(0 0 12px rgba(255,159,28,.5)); margin-bottom:4px;
+  }
+  .header-sub {
+    font-family:'Share Tech Mono', monospace; font-size:.68rem;
+    color:var(--muted); letter-spacing:.25em; text-transform:uppercase; margin-bottom:14px;
+  }
+  .badge-card {
+    display:inline-flex; align-items:center; gap:7px;
+    padding:6px 16px; border-radius:99px;
+    background:rgba(255,159,28,.07); border:1px solid rgba(255,159,28,.3);
+    font-family:'Share Tech Mono', monospace; font-size:.62rem;
+    letter-spacing:.15em; color:var(--violet2); text-transform:uppercase;
+    animation:pulse 2.5s ease-in-out infinite;
+  }
+  .badge-dot { width:6px;height:6px;border-radius:50%;background:var(--violet2);animation:blink 1.2s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 8px rgba(255,159,28,.2);} 50%{box-shadow:0 0 20px rgba(255,159,28,.4);} }
+
+  /* ═══ BODY ═══ */
+  .card-body { padding:28px 24px 32px; display:flex; flex-direction:column; gap:16px; }
+
+  .valor-box {
+    background:var(--noir3); border-radius:var(--r); padding:20px 22px;
+    text-align:center; border:1px solid rgba(255,159,28,.2);
+    position:relative; overflow:hidden;
+  }
+  .valor-box::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 0%, rgba(255,159,28,.06), transparent 65%);
+  }
+  .valor-label {
+    font-family:'Share Tech Mono', monospace; font-size:.58rem;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;
+  }
+  .valor-num {
+    font-family:'Orbitron', monospace; font-size:3rem; font-weight:900;
+    color:var(--violet2); filter:drop-shadow(0 0 18px rgba(255,159,28,.5)); line-height:1;
+  }
+  .valor-num small { font-size:1.1rem; vertical-align:super; margin-right:4px; color:var(--pink); }
+  .valor-itens { margin-top:8px; font-size:.72rem; color:var(--muted); font-family:'Share Tech Mono', monospace; }
+
+  /* Itens */
+  .itens-box { display:none; background:var(--noir3); border-radius:var(--r); padding:16px 18px; border:1px solid var(--border); }
+  .itens-box.visivel { display:block; }
+  .itens-titulo { font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--violet2);margin-bottom:10px;font-family:'Share Tech Mono', monospace; }
+  .item-linha { font-size:.82rem;color:var(--text);padding:5px 0;border-bottom:1px solid rgba(255,159,28,.06);display:flex;justify-content:space-between; }
+  .item-linha:last-child { border-bottom:none; }
+
+  /* Endereço */
+  .endereco-box {
+    background:var(--noir3); border-radius:var(--r); padding:20px 18px;
+    border:1px solid var(--border); transition:.3s;
+  }
+  .endereco-label {
+    font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--violet2);margin-bottom:14px;display:flex;align-items:center;gap:8px;
+    font-family:'Share Tech Mono', monospace;
+  }
+  .endereco-campos { display:flex;flex-direction:column;gap:9px; }
+  .campo-row { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+  .campo-input {
+    width:100%; padding:11px 14px;
+    background:rgba(255,159,28,.03); border:1px solid rgba(255,159,28,.12);
+    border-radius:10px; color:var(--text);
+    font-family:'Exo 2', sans-serif; font-size:.85rem; outline:none; transition:.3s; resize:vertical;
+  }
+  .campo-input::placeholder { color:rgba(255,159,28,.2); font-size:.8rem; }
+  .campo-input:focus {
+    border-color:rgba(255,159,28,.45); background:rgba(255,159,28,.06);
+    box-shadow:0 0 0 3px rgba(255,159,28,.08), 0 0 14px rgba(255,159,28,.1);
+  }
+  textarea.campo-input { min-height:72px; }
+
+  /* ═══ CARTÃO VISUAL ═══ */
+  .cartao-visual {
+    background:linear-gradient(135deg, rgba(255,159,28,.15) 0%, rgba(255,209,102,.1) 50%, rgba(255,179,71,.1) 100%);
+    border-radius:16px; padding:20px 24px; border:1px solid rgba(255,159,28,.25);
+    position:relative; overflow:hidden;
+  }
+  .cartao-visual::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, var(--violet), var(--cyan), var(--pink), transparent); opacity:.5;
+  }
+  .cartao-visual::after {
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,159,28,.015) 10px, rgba(255,159,28,.015) 11px);
+  }
+  .cartao-title {
+    font-family:'Share Tech Mono', monospace; font-size:.62rem;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--violet2);
+    margin-bottom:14px; position:relative; z-index:1;
+    display:flex; align-items:center; gap:8px;
+  }
+  .bandeiras {
+    display:flex; gap:8px; position:relative; z-index:1; flex-wrap:wrap;
+  }
+  .bandeira {
+    padding:6px 14px; border-radius:8px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+    font-family:'Orbitron', monospace; font-size:.62rem; font-weight:700;
+    letter-spacing:.06em; color:var(--text); transition:.3s;
+  }
+  .bandeira.visa { border-color:rgba(30,144,255,.3); color:#1E90FF; }
+  .bandeira.master { border-color:rgba(255,100,0,.3); color:#FF6400; }
+  .bandeira.elo { border-color:rgba(255,215,0,.3); color:#FFD700; }
+  .bandeira.pix-b { border-color:rgba(255,209,102,.3); color:var(--cyan); }
+  .bandeira:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(255,159,28,.2); }
+
+  /* Maquininha info */
+  .maquininha-info {
+    margin-top:14px; position:relative; z-index:1;
+    display:flex; align-items:flex-start; gap:12px;
+  }
+  .maquininha-icon {
+    width:40px; height:40px; flex-shrink:0;
+    background:rgba(255,159,28,.1); border:1px solid rgba(255,159,28,.25);
+    border-radius:10px; display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem;
+    animation:glow 2s ease-in-out infinite;
+  }
+  @keyframes glow { 0%,100%{box-shadow:0 0 8px rgba(255,159,28,.2);} 50%{box-shadow:0 0 20px rgba(255,159,28,.4);} }
+  .maquininha-text { font-size:.8rem; color:var(--text); line-height:1.6; font-family:'Exo 2', sans-serif; }
+  .maquininha-text strong { color:var(--violet2); }
+
+  /* Aviso */
+  .aviso {
+    background:rgba(255,140,0,.07); border:1px solid rgba(255,140,0,.2);
+    border-radius:var(--r); padding:16px; display:flex; gap:12px; align-items:flex-start;
+  }
+  .aviso-icon { font-size:1.3rem; flex-shrink:0; }
+  .aviso p { font-size:.8rem; color:rgba(255,200,100,.85); line-height:1.6; font-family:'Exo 2', sans-serif; }
+  .aviso strong { color:var(--amber); }
+
+  /* Divisor */
+  .divider {
+    display:flex; align-items:center; gap:12px;
+    color:var(--muted); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;
+    font-family:'Share Tech Mono', monospace;
+  }
+  .divider::before,.divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
+
+  /* Botão WhatsApp */
+  .btn-whats {
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    width:100%; padding:18px; border-radius:14px;
+    background:linear-gradient(135deg, #FF9F1C 0%, #FFD166 50%, #FFB347 100%);
+    background-size:200% 100%;
+    color:#fff; font-family:'Orbitron', monospace; font-size:.85rem; font-weight:700;
+    letter-spacing:.05em; border:none; cursor:pointer; transition:.4s var(--ease);
+    box-shadow:0 8px 32px rgba(255,159,28,.28); position:relative; overflow:hidden;
+  }
+  .btn-whats::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg, transparent 40%, rgba(255,255,255,.08) 50%, transparent 60%);
+    transform:translateX(-100%); transition:.5s;
+  }
+  .btn-whats:hover { background-position:100% 0; transform:translateY(-3px); box-shadow:0 16px 48px rgba(255,179,71,.42); }
+  .btn-whats:hover::after { transform:translateX(100%); }
+
+  /* Footer */
+  .card-footer {
+    padding:18px 24px; text-align:center; border-top:1px solid rgba(255,159,28,.08);
+    font-family:'Share Tech Mono', monospace; font-size:.65rem; color:var(--muted); letter-spacing:.06em;
+  }
+  .card-footer a { color:var(--violet2); text-decoration:none; transition:.2s; }
+  .card-footer a:hover { color:var(--cyan); text-shadow:0 0 8px var(--cyan); }
+
+  /* Toast */
+  #toast {
+    position:fixed; bottom:28px; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--noir3); border:1px solid rgba(255,159,28,.35);
+    color:var(--violet2); padding:12px 24px; border-radius:99px;
+    font-family:'Share Tech Mono', monospace; font-size:.78rem;
+    z-index:9999; opacity:0; transition:all .4s var(--ease);
+    white-space:nowrap; display:flex; align-items:center; gap:8px;
+    box-shadow:0 8px 32px rgba(0,0,0,.6), 0 0 20px rgba(255,159,28,.15);
+  }
+  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media(max-width:480px) {
+    body { padding:0 0 60px; }
+    .card { border-radius:0 0 28px 28px; border-top:none; }
+    .campo-row { grid-template-columns:1fr; }
+    .header-brand { font-size:1.3rem; }
+    .valor-num { font-size:2.4rem; }
+    .bandeiras { gap:6px; }
+  }
+  </style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="card">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- HEADER -->
+  <div class="card-header">
+    <div class="logo-system">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+      <div class="logo-core">
+        <img src="./imgs/logo.jpg" alt="Lene Salgados"
+             onerror="this.parentElement.outerHTML='<div class=\'logo-fallback-core\'>🥐</div>'"/>
+      </div>
+    </div>
+    <div class="header-brand">Lene Salgados</div>
+    <div class="header-sub">// Pagamento no Cartão</div>
+    <div class="badge-card">
+      <div class="badge-dot"></div>
+      Terminal Seguro Ativo
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="card-body">
+
+    <!-- Valor -->
+    <div class="valor-box">
+      <div class="valor-label">◈ Total da Transação</div>
+      <div class="valor-num"><small>R$</small><span id="totalValor">0,00</span></div>
+      <div class="valor-itens" id="valorItens"></div>
+    </div>
+
+    <!-- Itens -->
+    <div class="itens-box" id="itensBox">
+      <div class="itens-titulo">◉ Log do Pedido</div>
+      <div id="itensList"></div>
+    </div>
+
+    <!-- Endereço -->
+    <div class="endereco-box">
+      <div class="endereco-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Coordenadas de Entrega
+      </div>
+      <div class="endereco-campos">
+        <input class="campo-input" id="end-rua" type="text" placeholder="◈ Rua / Avenida *" autocomplete="street-address">
+        <div class="campo-row">
+          <input class="campo-input" id="end-num" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="N° *" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          <input class="campo-input" id="end-comp" type="text" placeholder="Complemento">
+        </div>
+        <div class="campo-row">
+          <input class="campo-input" id="end-bairro" type="text" placeholder="Bairro *" oninput="this.value=this.value.replace(/[0-9]/g,'')">
+          <input class="campo-input" id="end-ref" type="text" placeholder="Referência">
+        </div>
+        <textarea class="campo-input" id="end-obs" placeholder="Observações do pedido..."></textarea>
+      </div>
+    </div>
+
+    <!-- Cartão Visual -->
+    <div class="cartao-visual">
+      <div class="cartao-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Bandeiras Aceitas
+      </div>
+      <div class="bandeiras">
+        <div class="bandeira visa">VISA</div>
+        <div class="bandeira master">MASTERCARD</div>
+        <div class="bandeira elo">ELO</div>
+        <div class="bandeira" style="border-color:rgba(0,255,136,.3);color:#FFC46B;">DÉBITO</div>
+        <div class="bandeira" style="border-color:rgba(255,179,71,.3);color:var(--pink);">CRÉDITO</div>
+      </div>
+      <div class="maquininha-info">
+        <div class="maquininha-icon">💳</div>
+        <div class="maquininha-text">
+          O entregador levará a <strong>maquininha</strong> para você. Pagamento feito na hora da entrega — rápido e seguro!
+        </div>
+      </div>
+    </div>
+
+    <div class="divider">◈◈◈</div>
+
+    <!-- Aviso -->
+    <div class="aviso">
+      <span class="aviso-icon">⚡</span>
+      <p><strong>Importante!</strong> Clique abaixo para confirmar seu pedido pelo WhatsApp com o endereço de entrega. O entregador levará a maquininha! 🥐</p>
+    </div>
+
+    <!-- WhatsApp -->
+    <button class="btn-whats" onclick="enviarWhats()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      CONFIRMAR PEDIDO VIA WHATSAPP
+    </button>
+
+  </div>
+
+  <div class="card-footer">
+    Lene Salgados Delivery &nbsp;·&nbsp; <a href="index.html">← Voltar ao Cardápio</a>
+  </div>
+</div>
+
+<div id="toast"><span>◈</span></div>
+
+<script>
+/* ═══ CANVAS ═══ */
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+
+  // Nebula + particles
+  const particles = [];
+  for (let i = 0; i < 90; i++) {
+    particles.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.5 + 0.3,
+      vx: (Math.random() - .5) * .35,
+      vy: (Math.random() - .5) * .35,
+      c: ['rgba(255,159,28,','rgba(255,209,102,','rgba(255,179,71,'][Math.floor(Math.random()*3)],
+      a: Math.random() * .45 + .08
+    });
+  }
+
+  // Neural network nodes
+  const nodes = [];
+  for (let i = 0; i < 18; i++) {
+    nodes.push({ x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25 });
+  }
+
+  let frame = 0;
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Nebula blobs
+    [[W*.3, H*.3, 200, 'rgba(255,159,28,.025)'], [W*.7, H*.7, 180, 'rgba(255,209,102,.02)'], [W*.5, H*.1, 150, 'rgba(255,179,71,.018)']].forEach(([x,y,r,c]) => {
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, c); g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    });
+
+    // Neural network
+    nodes.forEach(n => { n.x += n.vx; n.y += n.vy; if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1; });
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i+1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 130) {
+          ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(255,159,28,${0.04*(1-d/130)})`; ctx.lineWidth = .5; ctx.stroke();
+        }
+      }
+    }
+    nodes.forEach(n => {
+      ctx.beginPath(); ctx.arc(n.x, n.y, 1.5, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,159,28,0.2)'; ctx.fill();
+    });
+
+    // Floating particles
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = p.c + p.a + ')'; ctx.fill();
+    });
+
+    // Scan line
+    const scanY = ((frame * .6) % (H + 100)) - 50;
+    const g = ctx.createLinearGradient(0, scanY-30, 0, scanY+30);
+    g.addColorStop(0,'transparent'); g.addColorStop(.5,'rgba(255,159,28,0.022)'); g.addColorStop(1,'transparent');
+    ctx.fillStyle = g; ctx.fillRect(0, scanY-30, W, 60);
+
+    frame++; requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ═══ PARAMS ═══ */
+const params = new URLSearchParams(window.location.search);
+const total = params.get('total') || '0.00';
+let totalNum = parseFloat(total) || 0;
+const itens = JSON.parse(decodeURIComponent(params.get('itens') || '[]'));
+
+document.getElementById('totalValor').innerText = totalNum.toFixed(2).replace('.', ',');
+
+const itensBox = document.getElementById('itensBox');
+const itensList = document.getElementById('itensList');
+if (itens.length) {
+  itensBox.classList.add('visivel');
+  itens.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'item-linha';
+    div.innerHTML = `<span>${item.nome || item}</span><span>R$ ${Number(item.preco || 0).toFixed(2).replace('.', ',')}</span>`;
+    itensList.appendChild(div);
+  });
+  document.getElementById('valorItens').textContent = itens.length + (itens.length === 1 ? ' item' : ' itens');
+}
+
+/* ═══ WHATSAPP ═══ */
+function enviarWhats() {
+  const rua    = document.getElementById('end-rua').value.trim();
+  const numero = document.getElementById('end-num').value.trim();
+  const bairro = document.getElementById('end-bairro').value.trim();
+  const comp   = document.getElementById('end-comp').value.trim();
+  const ref    = document.getElementById('end-ref').value.trim();
+  const obs    = document.getElementById('end-obs').value.trim();
+  if (!rua || !numero || !bairro) {
+    const box = document.querySelector('.endereco-box');
+    box.style.borderColor = 'rgba(255,51,85,.5)';
+    box.style.boxShadow = '0 0 0 3px rgba(255,51,85,.12)';
+    document.getElementById('end-rua').focus();
+    mostrarToast('⚠ Preencha o endereço!', '255,51,85');
+    setTimeout(() => { box.style.borderColor = ''; box.style.boxShadow = ''; }, 2500);
+    return;
+  }
+  let mensagem = `🍟 *NOVO PEDIDO — LENE SALGADOS*\n\n`;
+  mensagem += `🧾 *Itens do pedido:*\n`;
+  itens.forEach(item => { mensagem += `• ${item.nome || item} — R$ ${Number(item.preco || 0).toFixed(2).replace('.', ',')}\n`; });
+  mensagem += `\n💰 *Total:* R$ ${totalNum.toFixed(2).replace('.', ',')}\n`;
+  mensagem += `💳 *Forma de pagamento:* Cartão (maquininha na entrega)\n\n`;
+  mensagem += `📍 *ENDEREÇO:*\nRua: ${rua}, Nº ${numero}\nBairro: ${bairro}`;
+  if (comp) mensagem += `\nComplemento: ${comp}`;
+  if (ref)  mensagem += `\nReferência: ${ref}`;
+  if (obs)  mensagem += `\n\n📝 Observações: ${obs}`;
+  mensagem += `\n\n🔥 Pedido enviado pelo site!`;
+  window.open(`https://wa.me/5585997376419?text=${encodeURIComponent(mensagem)}`, '_blank');
+}
+
+/* ═══ TOAST ═══ */
+let toastTimer;
+function mostrarToast(msg, color) {
+  const t = document.getElementById('toast');
+  t.style.borderColor = `rgba(${color},.3)`;
+  t.style.color = `rgb(${color})`;
+  t.innerHTML = `<span>◈</span> ${msg}`;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finalizar Pedido — Lene Salgados</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+  :root {
+    --amber:    #FF8C00;
+    --amber-2:  #FFB347;
+    --amber-3:  #FFDC78;
+    --ember:    #FF4500;
+    --green:    #00E87A;
+    --green-d:  rgba(0,232,122,.1);
+    --noir:     #060608;
+    --noir2:    #0D0D12;
+    --noir3:    #131318;
+    --noir4:    #1A1A22;
+    --text:     #F0EEF5;
+    --muted:    #6B6880;
+    --muted2:   #9896A8;
+    --border:   rgba(255,255,255,0.07);
+    --glass:    rgba(255,255,255,.03);
+    --radius:   20px;
+    --ease:     cubic-bezier(.22,1,.36,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--noir);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 16px 80px;
+    overflow-x: hidden;
+  }
+
+  /* Artistic background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% -10%, rgba(255,140,0,.13) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 60% at -10% 90%, rgba(0,232,122,.06) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 100% 60%, rgba(255,69,0,.07) 0%, transparent 55%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* Grid lines */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,140,0,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,140,0,.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ============================================
+     CARD PRINCIPAL
+     ============================================ */
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    background: var(--noir2);
+    border-radius: 40px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow:
+      0 60px 120px rgba(0,0,0,.7),
+      0 0 0 1px rgba(255,255,255,.04) inset;
+    animation: riseUp .6s var(--ease) both;
+  }
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(50px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Linha luminosa no topo */
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--amber), var(--amber-3), transparent);
+    opacity: .6;
+    z-index: 2;
+  }
+
+  /* ── HEADER ── */
+  .card-header {
+    padding: 48px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Glow atrás do logo */
+  .card-header::after {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%;
+    transform: translateX(-50%);
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(255,140,0,.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo-ring {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 22px;
+  }
+
+  .logo-ring::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255,140,0,.3);
+    animation: spin 14s linear infinite;
+  }
+  .logo-ring::after {
+    content: '✦';
+    position: absolute;
+    top: -2px; left: 50%;
+    transform: translateX(-50%);
+    font-size: .55rem;
+    color: var(--amber);
+    animation: spin 14s linear infinite;
+  }
+  @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+  .logo-ring::after { animation: spin2 14s linear infinite; }
+  @keyframes spin2 {
+    to { transform: translateX(-50%) rotate(360deg); }
+  }
+
+  .logo-img {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,140,0,.35);
+    box-shadow:
+      0 0 0 6px rgba(255,140,0,.08),
+      0 20px 50px rgba(0,0,0,.5);
+    position: relative; z-index: 1;
+    background: var(--noir3);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo-fallback {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: var(--noir3);
+    border: 2px solid rgba(255,140,0,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem;
+    position: relative; z-index: 1;
+  }
+
+  .header-brand {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.9rem;
+    letter-spacing: .06em;
+    background: linear-gradient(135deg, #fff, var(--amber-3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-sub {
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .badge-seguro {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 5px 14px;
+    border-radius: 99px;
+    background: rgba(0,232,122,.1);
+    border: 1px solid rgba(0,232,122,.25);
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #00e87a;
+  }
+  .badge-seguro svg { flex-shrink: 0; }
+
+  /* ── BODY ── */
+  .card-body {
+    padding: 32px 28px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* Valor */
+  .valor-box {
+    background: var(--noir3);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    text-align: center;
+    border: 1px solid rgba(255,140,0,.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .valor-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,140,0,.07), transparent 70%);
+  }
+
+  .valor-label {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .valor-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3.2rem;
+    letter-spacing: .04em;
+    color: var(--amber-2);
+    line-height: 1;
+    filter: drop-shadow(0 0 24px rgba(255,140,0,.3));
+  }
+  .valor-num small {
+    font-size: 1.2rem;
+    vertical-align: super;
+    margin-right: 4px;
+    color: var(--amber);
+  }
+
+  .valor-itens {
+    margin-top: 10px;
+    font-size: .75rem;
+    color: var(--muted);
+  }
+
+  /* Itens */
+  .itens-box {
+    background: var(--noir3);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    border: 1px solid var(--border);
+    display: none;
+  }
+  .itens-box.visivel { display: block; }
+
+  .itens-titulo {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .item-linha {
+    font-size: .85rem;
+    color: var(--muted2);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .item-linha:last-child { border-bottom: none; }
+  .item-linha::before { content: '·'; color: var(--amber); font-size: 1.2rem; flex-shrink: 0; }
+
+  /* ─── CAMPO DE ENDEREÇO ─── */
+  .endereco-box {
+    background: var(--noir3);
+    border-radius: var(--radius);
+    padding: 20px 20px;
+    border: 1px solid var(--border);
+    transition: border-color .3s;
+  }
+  .endereco-box:focus-within { border-color: rgba(255,140,0,.4); }
+
+  .endereco-label {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .endereco-label span { font-size: 1rem; }
+
+  .endereco-campos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .campo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+.campo-input {
+  width: 100%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .85rem;
+  outline: none;
+  transition: border-color .3s, background .3s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+  .campo-input::placeholder { color: var(--muted); }
+  .campo-input:focus {
+    border-color: rgba(255,140,0,.4);
+    background: rgba(255,140,0,.04);
+  }
+
+  textarea.campo-input {
+    resize: none;
+    height: 68px;
+    line-height: 1.5;
+  }
+
+  /* QR Code */
+  .qr-section { text-align: center; }
+
+  .qr-label {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .qr-frame {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 22px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  }
+
+  /* Cantos dourados */
+  .qr-corner {
+    position: absolute;
+    width: 22px; height: 22px;
+    border-color: var(--amber);
+    border-style: solid;
+  }
+  .qr-corner.tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; border-radius: 5px 0 0 0; }
+  .qr-corner.tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; border-radius: 0 5px 0 0; }
+  .qr-corner.bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; border-radius: 0 0 0 5px; }
+  .qr-corner.br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; border-radius: 0 0 5px 0; }
+
+  .qr-frame img { width: 190px; height: 190px; object-fit: contain; display: block; }
+
+  .qr-placeholder {
+    width: 190px; height: 190px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 14px;
+    color: #888;
+    font-size: .78rem;
+    text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+  }
+
+  /* Chave PIX */
+  .pix-box {
+    background: var(--noir3);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    border: 1px solid var(--border);
+  }
+
+  .pix-box-title {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .pix-key {
+    font-family: 'DM Mono', monospace;
+    font-size: .85rem;
+    color: var(--muted2);
+    word-break: break-all;
+    line-height: 1.5;
+    user-select: all;
+  }
+
+  /* Botão copiar */
+  .btn-copiar {
+    width: 100%;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,140,0,.3);
+    background: rgba(255,140,0,.08);
+    color: var(--amber-2);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .4s var(--ease);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    letter-spacing: .03em;
+  }
+  .btn-copiar:hover {
+    background: rgba(255,140,0,.16);
+    border-color: rgba(255,140,0,.55);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255,140,0,.2);
+  }
+
+  /* Aviso */
+  .aviso {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: rgba(255,140,0,.05);
+    border: 1px solid rgba(255,140,0,.14);
+    border-radius: 16px;
+    padding: 16px 18px;
+  }
+  .aviso-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+  .aviso p { font-size: .82rem; color: var(--muted2); line-height: 1.65; }
+  .aviso strong { color: var(--amber); }
+
+  /* Botão WhatsApp */
+  .btn-whats {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    padding: 18px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #25D366, #1DA851);
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .4s var(--ease);
+    box-shadow: 0 10px 36px rgba(37,211,102,.3);
+    letter-spacing: .03em;
+  }
+  .btn-whats:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 48px rgba(37,211,102,.45);
+  }
+
+  /* Divisor */
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--muted);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Card footer */
+  .card-footer {
+    padding: 20px 28px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+  .card-footer a { color: var(--amber); text-decoration: none; transition: opacity .2s; }
+  .card-footer a:hover { opacity: .8; }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--noir3);
+    border: 1px solid rgba(0,232,122,.3);
+    color: #00e87a;
+    padding: 13px 26px;
+    border-radius: 99px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .82rem;
+    font-weight: 700;
+    z-index: 9999;
+    opacity: 0;
+    transition: all .4s var(--ease);
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  }
+  #toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 0 0 60px; align-items: flex-start; }
+    .card { border-radius: 0 0 32px 32px; border-top: none; }
+    .campo-row { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="card-header">
+    <div class="logo-ring">
+      <img class="logo-img" src="./imgs/logo.jpg" alt="Lene Salgados"
+           onerror="this.outerHTML='<div class=\'logo-fallback\'>🥐</div>'"/>
+    </div>
+    <div class="header-brand">Lene Salgados</div>
+    <div class="header-sub">Finalização Completa do Pedido</div>
+    <div class="badge-seguro">
+      <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
+        <rect x="1" y="5" width="8" height="6" rx="1.5" fill="currentColor" opacity=".8"/>
+        <path d="M2.5 5V3.5a2.5 2.5 0 0 1 5 0V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Pagamento 100% Seguro
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="card-body">
+
+    <!-- Valor total -->
+    <div class="valor-box">
+      <div class="valor-label">Total a pagar</div>
+      <div class="valor-num"><small>R$</small><span id="totalValor">0,00</span></div>
+      <div class="valor-itens" id="valorItens"></div>
+    </div>
+
+    <!-- Itens do pedido -->
+    <div class="itens-box" id="itensBox">
+      <div class="itens-titulo">📋 Itens do pedido</div>
+      <div id="itensList"></div>
+    </div>
+
+    <!-- ─── ENDEREÇO DE ENTREGA ─── -->
+    <div class="endereco-box">
+      <div class="endereco-label"><span>📍</span> Endereço de entrega</div>
+      <div class="endereco-campos">
+        <input class="campo-input" id="end-rua"    type="text" placeholder="Rua / Avenida *" autocomplete="street-address">
+        <div class="campo-row">
+          <input 
+            class="campo-input"
+            id="end-num"
+            type="tel"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            maxlength="6"
+            placeholder="Número *"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          >
+          <input class="campo-input" id="end-comp"   type="text" placeholder="Complemento">
+        </div>
+        <div class="campo-row">
+          <input 
+            class="campo-input"
+            id="end-bairro"
+            type="text"
+            placeholder="Bairro *"
+            oninput="this.value = this.value.replace(/[0-9]/g, '')"
+          >
+          <input class="campo-input" id="end-ref"    type="text" placeholder="Ponto de referência">
+        </div>
+        <textarea class="campo-input" id="end-obs" placeholder="Observações do pedido (opcional)..."></textarea>
+      </div>
+    </div>
+
+    
+    
+
+    <div class="divider">ou</div>
+
+    <!-- Aviso -->
+    <div class="aviso">
+      <span class="aviso-icon">⚡</span>
+      <p><strong>Importante!</strong> Após pagar, clique no botão abaixo para enviar o comprovante pelo WhatsApp com seu endereço de entrega. Não esqueça! 🥐</p>
+    </div>
+
+    <!-- WhatsApp com endereço -->
+    <button class="btn-whats" onclick="enviarWhats()" id="btnWhatsapp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Enviar pelo WhatsApp
+    </button>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="card-footer">
+    Lene Salgados Delivery &nbsp;·&nbsp; <a href="index.html">← Voltar ao cardápio</a>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div id="toast">
+  <span>✓</span>
+  Chave PIX copiada!
+</div>
+
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const total = params.get('total') || '0.00';
+
+const itens = JSON.parse(
+  decodeURIComponent(params.get('itens') || '[]')
+);
+
+document.getElementById('totalValor').innerText = Number(total).toFixed(2).replace('.', ',');
+
+const itensBox = document.getElementById('itensBox');
+const itensList = document.getElementById('itensList');
+
+if (itens.length) {
+  itensBox.classList.add('visivel');
+
+  itens.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'item-linha';
+    div.innerHTML = `${item.nome || item} — R$ ${Number(item.preco || 0).toFixed(2).replace('.', ',')}`;
+    itensList.appendChild(div);
+  });
+}
+
+function montarEndereco() {
+  const rua = document.getElementById('end-rua').value.trim();
+  const numero = document.getElementById('end-num').value.trim();
+  const bairro = document.getElementById('end-bairro').value.trim();
+  const comp = document.getElementById('end-comp').value.trim();
+  const ref = document.getElementById('end-ref').value.trim();
+  const obs = document.getElementById('end-obs').value.trim();
+
+  if (!rua || !numero || !bairro) {
+    alert('Preencha o endereço completo!');
+    return null;
+  }
+
+  return `📍 *ENDEREÇO*:
+Rua: ${rua}, Nº ${numero}
+Bairro: ${bairro}
+Complemento: ${comp || 'Não informado'}
+Referência: ${ref || 'Não informado'}
+Observações: ${obs || 'Nenhuma'}`;
+}
+
+function enviarWhats() {
+  const endereco = montarEndereco();
+  if (!endereco) return;
+
+  let mensagem = `🍟 *NOVO PEDIDO — LENE SALGADOS*
+
+`;
+
+  mensagem += `🧾 *Itens do pedido:*
+`;
+
+  itens.forEach(item => {
+    mensagem += `• ${item.nome || item}
+`;
+  });
+
+  mensagem += `
+💰 *Total:* R$ ${Number(total).toFixed(2).replace('.', ',')}
+`;
+  mensagem += `💳 *Forma de pagamento:* Finalizar Pedido
+
+`;
+  mensagem += endereco;
+  mensagem += `
+
+🔥 Pedido enviado pelo site!`;
+
+  window.open(`https://wa.me/5585997376419?text=${encodeURIComponent(mensagem)}`, '_blank');
+}
+</script>
+
+</body>
+</html>

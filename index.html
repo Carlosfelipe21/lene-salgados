@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lene Salgados Delivery — Fortaleza</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+:root {
+  --gold:     #E8A020;
+  --gold2:    #F5C842;
+  --gold3:    #FDE68A;
+  --ember:    #D94F00;
+  --cream:    #FDF6EC;
+  --noir:     #080608;
+  --noir2:    #100E12;
+  --noir3:    #181520;
+  --noir4:    #211E2A;
+  --glass:    rgba(255,255,255,0.03);
+  --glass2:   rgba(255,255,255,0.06);
+  --border:   rgba(255,255,255,0.07);
+  --text:     #F2EEF8;
+  --muted:    #6B667A;
+  --muted2:   #9D97B0;
+  --green:    #00D97E;
+  --red:      #FF3355;
+  --radius:   18px;
+  --radius-xl:28px;
+  --ease:     cubic-bezier(.22,1,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--noir);color:var(--text);overflow-x:hidden}
+
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9999}
+
+/* ────────────────────── BANNER ────────────────────── */
+#horario-banner{
+  position:fixed;top:0;left:0;right:0;z-index:6000;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:0 20px;height:50px;
+  font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;
+  border-bottom:1px solid transparent;transition:background .5s,border-color .5s;
+}
+#horario-banner.aberto{background:linear-gradient(90deg,rgba(0,217,126,.1),rgba(0,217,126,.05),rgba(0,217,126,.1));border-bottom-color:rgba(0,217,126,.2)}
+#horario-banner.fechado{background:linear-gradient(90deg,rgba(255,51,85,.1),rgba(255,51,85,.05),rgba(255,51,85,.1));border-bottom-color:rgba(255,51,85,.2)}
+#horario-banner.manual-fechado{background:linear-gradient(90deg,rgba(232,160,32,.12),rgba(232,160,32,.06),rgba(232,160,32,.12));border-bottom-color:rgba(232,160,32,.22)}
+.hb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.aberto .hb-dot{background:var(--green);animation:pulseG 2s ease-in-out infinite}
+.fechado .hb-dot{background:var(--red)}
+.manual-fechado .hb-dot{background:var(--gold);animation:pulseG 2s ease-in-out infinite}
+@keyframes pulseG{0%,100%{box-shadow:0 0 0 0 rgba(0,217,126,.5)}50%{box-shadow:0 0 0 8px rgba(0,217,126,0)}}
+.hb-pill{padding:3px 11px;border-radius:99px;font-size:.64rem;font-weight:700;letter-spacing:.1em}
+.aberto .hb-pill{background:rgba(0,217,126,.15);color:var(--green);border:1px solid rgba(0,217,126,.28)}
+.fechado .hb-pill{background:rgba(255,51,85,.15);color:var(--red);border:1px solid rgba(255,51,85,.28)}
+.manual-fechado .hb-pill{background:rgba(232,160,32,.15);color:var(--gold2);border:1px solid rgba(232,160,32,.28)}
+.hb-msg{color:rgba(255,255,255,.68)}
+.hb-schedule{color:var(--muted);font-size:.68rem;font-weight:400;letter-spacing:0;text-transform:none}
+.hb-schedule strong{color:var(--muted2)}
+@media(max-width:600px){.hb-schedule{display:none}}
+
+/* ────────────────────── NAV ────────────────────── */
+.nav{
+  position:fixed;top:50px;left:0;right:0;z-index:5000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 36px;height:62px;
+  background:rgba(8,6,8,.88);backdrop-filter:blur(28px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-decoration:none;letter-spacing:.02em;
+}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links a{
+  color:var(--muted2);text-decoration:none;font-size:.81rem;font-weight:500;
+  padding:6px 14px;border-radius:99px;transition:.25s;
+}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-cart{
+  position:relative;width:42px;height:42px;border-radius:12px;
+  background:var(--glass2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text);font-size:1rem;transition:.3s var(--ease);
+}
+.nav-cart:hover{background:rgba(232,160,32,.12);border-color:rgba(232,160,32,.3);color:var(--gold)}
+.nav-cart-count{
+  position:absolute;top:-5px;right:-5px;
+  min-width:18px;height:18px;padding:0 4px;
+  background:var(--ember);border-radius:99px;
+  font-size:.58rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--noir);animation:popIn .3s var(--ease);
+}
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+@media(max-width:768px){.nav-links{display:none};.nav{padding:0 18px}}
+
+/* ────────────────────── LOJA FECHADA OVERLAY ────────────────────── */
+.loja-fechada-overlay{
+  position:fixed;inset:0;z-index:7500;
+  background:rgba(8,6,8,.82);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .5s var(--ease);
+}
+.loja-fechada-overlay.ativo{opacity:1;pointer-events:all}
+.loja-fechada-box{
+  background:var(--noir2);border:1px solid rgba(255,51,85,.25);
+  border-radius:var(--radius-xl);padding:52px 44px;text-align:center;
+  max-width:420px;width:90%;
+  box-shadow:0 40px 120px rgba(0,0,0,.8),0 0 60px rgba(255,51,85,.08);
+  animation:fadeUp .6s var(--ease);
+}
+@keyframes fadeUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.lfc-icon{font-size:3.5rem;margin-bottom:18px;display:block;filter:grayscale(.3)}
+.lfc-titulo{
+  font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;font-style:italic;
+  margin-bottom:12px;color:var(--text);
+}
+.lfc-msg{font-size:.92rem;color:var(--muted2);line-height:1.7;margin-bottom:28px}
+.lfc-horario{
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:14px;padding:16px 20px;margin-bottom:28px;
+  font-size:.82rem;color:var(--muted);line-height:1.8;
+}
+.lfc-horario strong{color:var(--gold2);display:block;margin-bottom:4px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+.lfc-wa{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 26px;border-radius:14px;
+  background:rgba(0,217,126,.1);border:1px solid rgba(0,217,126,.25);
+  color:var(--green);font-weight:700;font-size:.87rem;
+  text-decoration:none;transition:.3s var(--ease);
+}
+.lfc-wa:hover{background:rgba(0,217,126,.18);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,217,126,.2)}
+
+/* ────────────────────── BOTÕES FECHADOS ────────────────────── */
+/* Quando loja fechada, todos os btn-add e btn-gold ficam desabilitados */
+body.loja-fechada .btn-add,
+body.loja-fechada .btn-finalizar,
+body.loja-fechada .pay-btn {
+  background:#2a2a2a !important;
+  color:#555 !important;
+  cursor:not-allowed !important;
+  opacity:.6 !important;
+  box-shadow:none !important;
+  pointer-events:none !important;
+  transform:none !important;
+}
+body.loja-fechada .btn-add::before,
+body.loja-fechada .btn-gold::before {
+  display:none !important;
+}
+body.loja-fechada .btn-gold {
+  background:#2a2a2a !important;
+  color:#666 !important;
+  cursor:not-allowed !important;
+  opacity:.65 !important;
+  box-shadow:none !important;
+  pointer-events:none !important;
+  transform:none !important;
+}
+/* Badge loja fechada nos cards */
+body.loja-fechada .btn-add i { display:none }
+
+/* ────────────────────── HERO ────────────────────── */
+.hero{
+  min-height:100vh;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:170px 24px 120px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('./imgs/salgados-fundo.webp') center/cover no-repeat;
+  filter:brightness(.15) saturate(1.5);transform:scale(1.06);
+  transition:transform 16s ease;
+}
+.hero:hover .hero-bg{transform:scale(1.1)}
+.hero-grad{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(232,160,32,.22) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 80% at 90% 90%,rgba(217,79,0,.14) 0%,transparent 55%),
+    linear-gradient(180deg,rgba(8,6,8,0) 30%,rgba(8,6,8,1) 100%);
+}
+.hero-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(232,160,32,.12) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 70% 50% at 50% 30%,black 20%,transparent 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-logo-wrap{position:relative;display:inline-block;margin-bottom:44px}
+.hero-logo{
+  width:108px;height:108px;border-radius:50%;object-fit:cover;
+  border:2px solid rgba(232,160,32,.35);
+  box-shadow:0 0 0 10px rgba(232,160,32,.07),0 0 0 20px rgba(232,160,32,.03),0 28px 70px rgba(0,0,0,.7);
+  animation:float 7s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero-ring{
+  position:absolute;top:50%;left:50%;
+  width:152px;height:152px;margin:-76px 0 0 -76px;
+  border-radius:50%;border:1px dashed rgba(232,160,32,.22);
+  animation:spin 14s linear infinite;
+}
+.hero-ring::before{
+  content:'✦';position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+  font-size:.55rem;color:var(--gold);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,160,32,.09);border:1px solid rgba(232,160,32,.2);
+  border-radius:99px;padding:6px 18px;
+  font-size:.69rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold2);margin-bottom:24px;
+}
+.hero-kicker::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulseG 2s ease-in-out infinite}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(4rem,13vw,10rem);line-height:.88;
+  font-weight:900;font-style:italic;letter-spacing:-.02em;margin-bottom:30px;
+  background:linear-gradient(150deg,#fff 0%,var(--gold2) 50%,#fff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 80px rgba(232,160,32,.3));
+}
+.hero-sub{
+  font-size:1.05rem;color:rgba(255,255,255,.5);font-weight:400;
+  line-height:1.8;max-width:500px;margin:0 auto 52px;
+}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* ────────────────────── BUTTONS ────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 30px;border-radius:var(--radius);
+  font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:700;
+  cursor:pointer;text-decoration:none;border:none;
+  position:relative;overflow:hidden;transition:.4s var(--ease);letter-spacing:.03em;
+}
+.btn-gold{
+  background:linear-gradient(135deg,var(--ember) 0%,var(--gold) 60%,var(--gold2) 100%);
+  color:#fff;box-shadow:0 8px 36px rgba(232,160,32,.4),inset 0 1px 0 rgba(255,255,255,.18);
+}
+.btn-gold::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:translateX(-100%);transition:.6s;
+}
+.btn-gold:hover::before{transform:translateX(100%)}
+.btn-gold:hover{transform:translateY(-4px);box-shadow:0 18px 52px rgba(232,160,32,.55)}
+.btn-outline{
+  background:var(--glass2);border:1px solid var(--border);
+  color:var(--text);backdrop-filter:blur(12px);
+}
+.btn-outline:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18);transform:translateY(-3px)}
+
+/* ────────────────────── STATS ────────────────────── */
+.stats-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--noir2);
+}
+.stat{
+  padding:34px 20px;text-align:center;border-right:1px solid var(--border);
+  position:relative;overflow:hidden;transition:.4s var(--ease);cursor:default;
+}
+.stat:last-child{border-right:none}
+.stat:hover{background:var(--noir3)}
+.stat::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(232,160,32,.07),transparent 70%);
+  opacity:0;transition:.4s;
+}
+.stat:hover::before{opacity:1}
+.stat-num{
+  font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;font-style:italic;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:7px;
+}
+.stat-label{font-size:.72rem;color:var(--muted);font-weight:500;letter-spacing:.07em;text-transform:uppercase}
+@media(max-width:600px){.stats-bar{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:none}}
+
+/* ────────────────────── BENEFITS ────────────────────── */
+.benef-section{padding:80px 24px;max-width:1400px;margin:auto}
+.section-tag{
+  display:inline-flex;align-items:center;gap:8px;font-size:.67rem;
+  font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:16px;padding:5px 14px;
+  background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.17);border-radius:99px;
+}
+.section-title{
+  font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.5vw,4rem);
+  font-weight:900;font-style:italic;letter-spacing:-.02em;line-height:.95;margin-bottom:55px;
+}
+.section-title em{
+  font-style:italic;
+  background:linear-gradient(90deg,var(--gold),var(--gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.benef-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px}
+.benef-card{
+  background:var(--noir2);padding:44px 30px;
+  position:relative;overflow:hidden;transition:.4s var(--ease);
+}
+.benef-card:hover{background:var(--noir3)}
+.benef-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:.4s var(--ease);
+}
+.benef-card:hover::after{transform:scaleX(1)}
+.benef-icon{font-size:2rem;margin-bottom:18px;display:block}
+.benef-card h3{font-size:.97rem;font-weight:700;margin-bottom:9px;letter-spacing:.02em}
+.benef-card p{font-size:.85rem;color:var(--muted);line-height:1.65}
+
+/* ────────────────────── CARDÁPIO TABS ────────────────────── */
+.cardapio-section{padding:100px 24px;max-width:1400px;margin:auto}
+
+.tabs-nav{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-bottom:44px;
+  padding:6px;background:var(--noir2);border-radius:18px;
+  border:1px solid var(--border);width:fit-content;
+}
+.tab-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:13px;border:none;
+  background:transparent;color:var(--muted);
+  font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;
+  cursor:pointer;transition:.3s var(--ease);letter-spacing:.02em;white-space:nowrap;
+}
+.tab-btn:hover{color:var(--text);background:var(--glass2)}
+.tab-btn.ativo{
+  background:linear-gradient(135deg,var(--ember),var(--gold));
+  color:#fff;box-shadow:0 6px 24px rgba(232,160,32,.35);
+}
+.tab-btn .tab-icon{font-size:1.1rem}
+
+/* Panels */
+.tab-panel{display:none}
+.tab-panel.ativo{display:block}
+
+/* ────────────────────── PRODUCT GRID ────────────────────── */
+.produtos-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;
+}
+
+.produto-card{
+  background:var(--noir2);border-radius:var(--radius-xl);overflow:hidden;
+  border:1px solid var(--border);position:relative;transition:.5s var(--ease);
+}
+.produto-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,160,32,.6),transparent);
+  opacity:0;transition:.4s;
+}
+.produto-card:hover{transform:translateY(-10px);border-color:rgba(232,160,32,.2);box-shadow:0 36px 90px rgba(0,0,0,.65),0 0 60px rgba(232,160,32,.07)}
+.produto-card:hover::before{opacity:1}
+
+.card-img-wrap{position:relative;height:230px;overflow:hidden}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.produto-card:hover .card-img-wrap img{transform:scale(1.08)}
+.card-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(16,14,18,.97) 100%)}
+
+.badge-hot{
+  position:absolute;top:14px;left:14px;
+  background:linear-gradient(135deg,var(--ember),var(--gold));color:#fff;
+  font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 11px;border-radius:99px;display:flex;align-items:center;gap:5px;
+}
+.badge-novo{
+  position:absolute;top:14px;left:14px;
+  background:linear-gradient(135deg,#6C35DE,#A855F7);color:#fff;
+  font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 11px;border-radius:99px;display:flex;align-items:center;gap:5px;
+}
+.badge-preco{
+  position:absolute;bottom:14px;right:14px;
+  font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;font-style:italic;
+  color:var(--gold2);text-shadow:0 4px 20px rgba(0,0,0,.9);
+}
+.badge-preco small{font-size:.85rem;vertical-align:super;font-style:normal}
+
+.card-body{padding:22px 24px 24px}
+.card-body h3{font-size:1.1rem;font-weight:700;margin-bottom:7px;letter-spacing:-.01em}
+.card-body p{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:20px}
+
+.btn-add{
+  width:100%;padding:13px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,var(--ember),var(--gold));color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:700;
+  cursor:pointer;transition:.4s var(--ease);
+  display:flex;align-items:center;justify-content:center;gap:7px;letter-spacing:.03em;
+}
+.btn-add:hover{transform:scale(1.025);box-shadow:0 10px 30px rgba(232,160,32,.4)}
+.btn-add:active{transform:scale(.98)}
+.btn-add.esgotado{background:#2a2a2a!important;color:#666;cursor:not-allowed;opacity:.7;box-shadow:none}
+.btn-add.esgotado:hover{transform:none;box-shadow:none}
+
+/* ────────────────────── AVALIAÇÕES ────────────────────── */
+.avaliacoes-wrap{background:var(--noir2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:100px 24px}
+.avaliacoes-inner{max-width:1200px;margin:auto}
+.avaliacoes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-top:55px}
+.av-card{
+  background:var(--noir3);border-radius:var(--radius);padding:30px;
+  border:1px solid var(--border);position:relative;overflow:hidden;transition:.4s var(--ease);
+}
+.av-card:hover{border-color:rgba(232,160,32,.2);transform:translateY(-4px)}
+.av-quote{
+  position:absolute;top:-20px;right:18px;
+  font-family:'Playfair Display',serif;font-size:8rem;font-style:italic;
+  color:rgba(232,160,32,.05);line-height:1;pointer-events:none;
+}
+.av-stars{margin-bottom:14px}
+.av-stars span{color:var(--gold);font-size:.95rem}
+.av-text{color:var(--muted2);font-size:.9rem;line-height:1.72;margin-bottom:22px}
+.av-author{display:flex;align-items:center;gap:12px}
+.av-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.22);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.82rem;color:var(--gold);flex-shrink:0;
+}
+.av-name{font-weight:700;font-size:.88rem}
+.av-role{font-size:.72rem;color:var(--muted)}
+
+/* ────────────────────── FOOTER ────────────────────── */
+footer{background:var(--noir);border-top:1px solid var(--border);padding:64px 24px 40px;text-align:center}
+.footer-brand{
+  font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;font-style:italic;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:22px;letter-spacing:-.01em;
+}
+.footer-links{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;margin-bottom:28px}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:7px;transition:color .25s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{color:rgba(255,255,255,.13);font-size:.74rem}
+
+/* ────────────────────── CART ────────────────────── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);z-index:8000;opacity:0;pointer-events:none;transition:opacity .45s}
+.cart-overlay.ativo{opacity:1;pointer-events:all}
+.carrinho{
+  position:fixed;top:0;right:-500px;width:460px;height:100vh;
+  background:#08060A;border-left:1px solid var(--border);z-index:8001;
+  display:flex;flex-direction:column;transition:right .5s var(--ease);
+}
+.carrinho.ativo{right:0}
+@media(max-width:600px){.carrinho{width:100%;right:-100%}}
+
+.carrinho-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:26px 26px;border-bottom:1px solid var(--border);
+  background:#08060A;z-index:10;
+}
+.carrinho-header h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-style:italic;letter-spacing:-.01em}
+.btn-fechar{
+  width:34px;height:34px;border-radius:10px;border:1px solid var(--border);
+  background:var(--glass);color:var(--text);font-size:.85rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.25s;
+}
+.btn-fechar:hover{background:rgba(255,51,85,.15);border-color:rgba(255,51,85,.3);color:var(--red)}
+
+.carrinho-lista{flex:1;overflow-y:auto;padding:18px 26px}
+.carrinho-lista::-webkit-scrollbar{width:3px}
+.carrinho-lista::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+.carrinho-vazio{text-align:center;padding:56px 20px;color:var(--muted)}
+.carrinho-vazio i{font-size:2.8rem;opacity:.2;margin-bottom:14px;display:block}
+.carrinho-vazio p{font-size:.88rem;line-height:1.6}
+
+.item-carrinho{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04);
+  gap:12px;animation:slideIn .25s var(--ease);
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}}
+.item-info h4{font-size:.88rem;font-weight:700;margin-bottom:4px}
+.item-info p{font-size:.8rem;color:var(--gold);font-weight:600}
+.btn-remover{
+  width:30px;height:30px;border-radius:9px;border:1px solid rgba(255,51,85,.2);
+  background:rgba(255,51,85,.07);color:rgba(255,51,85,.7);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:.72rem;
+  flex-shrink:0;transition:.25s;
+}
+.btn-remover:hover{background:rgba(255,51,85,.2);color:var(--red)}
+
+.carrinho-footer{border-top:1px solid var(--border);padding:22px 26px 26px;background:#08060A}
+.total-linha{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}
+.total-label{font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.total-val{font-family:'Playfair Display',serif;font-size:2rem;font-style:italic;color:var(--gold2)}
+
+.pagamentos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.pay-btn{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:12px 8px;border-radius:14px;border:1px solid var(--border);
+  background:var(--glass);color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:.66rem;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.3s var(--ease);
+}
+.pay-btn .pay-icon{font-size:1.1rem}
+.pay-btn:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);transform:translateY(-2px)}
+.pay-btn.pix{border-color:rgba(0,217,126,.3);background:rgba(0,217,126,.07);color:#00D97E}
+.pay-btn.pix:hover{background:rgba(0,217,126,.14);box-shadow:0 4px 20px rgba(0,217,126,.2)}
+
+.btn-finalizar{
+  width:100%;padding:16px;border-radius:16px;border:none;
+  background:linear-gradient(135deg,var(--ember),var(--gold),var(--gold2));color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;
+  transition:.4s var(--ease);display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.03em;
+}
+.btn-finalizar:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(232,160,32,.45)}
+
+/* ────────────────────── TOAST ────────────────────── */
+.toast{
+  position:fixed;bottom:24px;right:22px;
+  background:var(--noir3);border:1px solid rgba(232,160,32,.25);color:var(--text);
+  padding:13px 18px;border-radius:var(--radius);font-size:.84rem;font-weight:600;
+  z-index:9998;display:flex;align-items:center;gap:9px;
+  transform:translateY(80px);opacity:0;transition:.4s var(--ease);
+  box-shadow:0 10px 36px rgba(0,0,0,.55);max-width:310px;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* Scroll top */
+.scroll-top{
+  position:fixed;bottom:86px;right:22px;width:42px;height:42px;border-radius:12px;
+  background:var(--glass2);border:1px solid var(--border);color:var(--muted2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  z-index:5000;transition:.3s var(--ease);opacity:0;pointer-events:none;font-size:.82rem;
+}
+.scroll-top.visible{opacity:1;pointer-events:all}
+.scroll-top:hover{background:rgba(232,160,32,.12);border-color:rgba(232,160,32,.3);color:var(--gold)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:.8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.08s}.reveal-d2{transition-delay:.16s}.reveal-d3{transition-delay:.24s}.reveal-d4{transition-delay:.32s}.reveal-d5{transition-delay:.4s}.reveal-d6{transition-delay:.48s}
+
+/* ────────────────────── CATEGORIA TITLE ────────────────────── */
+.cat-subtitle{
+  font-size:.78rem;color:var(--muted);margin-bottom:28px;
+  padding-bottom:14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.cat-subtitle strong{color:var(--gold2)}
+
+/* Quantity selector */
+.qty-wrap{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.qty-label{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.qty-btns{display:flex;gap:6px;flex-wrap:wrap}
+.qty-chip{
+  padding:6px 14px;border-radius:99px;border:1px solid var(--border);
+  background:var(--glass);color:var(--muted2);
+  font-size:.76rem;font-weight:600;cursor:pointer;transition:.25s;
+}
+.qty-chip:hover,.qty-chip.sel{background:rgba(232,160,32,.12);border-color:rgba(232,160,32,.3);color:var(--gold2)}
+
+/* Flavor picker */
+.flavor-wrap{margin-bottom:14px}
+.flavor-label{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:block}
+.flavor-grid{display:flex;gap:6px;flex-wrap:wrap}
+.flavor-chip{
+  padding:5px 12px;border-radius:99px;border:1px solid var(--border);
+  background:var(--glass);color:var(--muted2);
+  font-size:.73rem;font-weight:500;cursor:pointer;transition:.25s;
+}
+.flavor-chip:hover{border-color:rgba(232,160,32,.25);color:var(--text)}
+.flavor-chip.sel{background:rgba(232,160,32,.12);border-color:rgba(232,160,32,.35);color:var(--gold2);font-weight:600}
+
+/* Drink card - special layout */
+.drink-card .card-img-wrap{height:200px}
+
+/* ────────────────────── INTERACTIVE CARD VARIANT ────────────────────── */
+.combo-card{
+  background:var(--noir2);border-radius:var(--radius-xl);overflow:hidden;
+  border:1px solid var(--border);transition:.5s var(--ease);
+}
+.combo-card:hover{transform:translateY(-8px);border-color:rgba(232,160,32,.2);box-shadow:0 30px 70px rgba(0,0,0,.55)}
+.combo-header{
+  padding:28px 26px 20px;
+  background:linear-gradient(135deg,var(--noir3),var(--noir4));
+  border-bottom:1px solid var(--border);position:relative;overflow:hidden;
+}
+.combo-header::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,32,.08),transparent 70%);
+}
+.combo-emoji{font-size:2.8rem;margin-bottom:10px;display:block}
+.combo-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;font-style:italic;margin-bottom:6px}
+.combo-desc{font-size:.83rem;color:var(--muted);line-height:1.6}
+.combo-price{
+  font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;font-style:italic;
+  color:var(--gold2);margin-top:14px;
+}
+.combo-price small{font-size:.85rem;font-style:normal;color:var(--muted);vertical-align:middle;margin-left:4px}
+.combo-body{padding:22px 26px 24px}
+.combo-includes{margin-bottom:18px}
+.combo-includes p{font-size:.8rem;color:var(--muted);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.combo-tags{display:flex;flex-wrap:wrap;gap:6px}
+.combo-tag{
+  padding:4px 11px;border-radius:99px;
+  background:rgba(232,160,32,.07);border:1px solid rgba(232,160,32,.15);
+  color:var(--gold3);font-size:.72rem;font-weight:600;
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY CART -->
+<div class="cart-overlay" id="cartOverlay" onclick="fecharCarrinho()"></div>
+
+<!-- OVERLAY LOJA FECHADA -->
+<div class="loja-fechada-overlay" id="lojaFechadaOverlay">
+  <div class="loja-fechada-box">
+    <span class="lfc-icon">🌙</span>
+    <div class="lfc-titulo">Loja Fechada</div>
+    <p class="lfc-msg">No momento estamos fora do horário de atendimento. Volte em breve e teremos tudo pronto pra você! 🥐</p>
+    <div class="lfc-horario">
+      <strong>⏰ Horário de Funcionamento</strong>
+      Seg, Qua, Qui, Sex, Sáb &nbsp;·&nbsp; <strong style="color:var(--gold2)">09h às 20h</strong><br>
+      Domingo &nbsp;·&nbsp; <strong style="color:var(--gold2)">09h às 20h</strong><br>
+      Terça-feira &nbsp;·&nbsp; <strong style="color:var(--red)">Fechado</strong>
+    </div>
+
+  </div>
+</div>
+
+<!-- BANNER -->
+<div id="horario-banner">
+  <div class="hb-dot"></div>
+  <span class="hb-pill" id="hb-pill">—</span>
+  <span class="hb-msg" id="hb-msg">Verificando...</span>
+  <span class="hb-schedule">Seg–Sáb <strong>09h–20h</strong> &nbsp;·&nbsp; Dom <strong>09h–20h</strong> &nbsp;·&nbsp; Terça: Fechado</span>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">Lene Salgados</a>
+  <ul class="nav-links">
+    <li><a href="#cardapio">Cardápio</a></li>
+    <li><a href="#avaliacoes">Avaliações</a></li>
+    <li><a href="https://wa.me/5585997376419" target="_blank">WhatsApp</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-cart" onclick="abrirCarrinho()" title="Carrinho">
+      <i class="fa-solid fa-basket-shopping"></i>
+      <div class="nav-cart-count" id="cartCount" style="display:none">0</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <div class="hero-ring"></div>
+      <img src="./imgs/logo.png" alt="Lene Salgados" class="hero-logo" onerror="this.style.display='none'">
+    </div>
+    <div class="hero-kicker">Delivery Premium · Fortaleza</div>
+    <h1>Lene<br>Salgados</h1>
+    <p class="hero-sub">Os salgados mais pedidos de Fortaleza chegando até você — quentes, crocantes e impossíveis de resistir. 🔥</p>
+    <div class="hero-ctas">
+      <button class="btn btn-gold" id="btnVerCardapio" onclick="verCardapio()">
+        <i class="fa-solid fa-fire"></i> Ver Cardápio
+      </button>
+      <a class="btn btn-outline" href="https://wa.me/5585997376419" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Pedidos / Mês</div></div>
+  <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Avaliação Média</div></div>
+  <div class="stat"><div class="stat-num">45min</div><div class="stat-label">Entrega Média</div></div>
+  <div class="stat"><div class="stat-num">3 Anos</div><div class="stat-label">De Sabor</div></div>
+</div>
+
+<!-- BENEFITS -->
+<section class="benef-section">
+  <div class="reveal">
+    <span class="section-tag">✦ Por que a Lene?</span>
+    <h2 class="section-title">Do forno pra <em>sua festa</em></h2>
+  </div>
+  <div class="benef-grid">
+    <div class="benef-card reveal reveal-d1"><span class="benef-icon">⚡</span><h3>Entrega Expressa</h3><p>Pedido saindo quentinho do forno direto na sua porta em tempo recorde.</p></div>
+    <div class="benef-card reveal reveal-d2"><span class="benef-icon">👑</span><h3>Qualidade Premium</h3><p>Ingredientes selecionados, massa artesanal e um sabor que deixa saudade.</p></div>
+    <div class="benef-card reveal reveal-d3"><span class="benef-icon">🎉</span><h3>Kits para Festas</h3><p>Da mini confraternização ao evento grande — temos o combo perfeito para você.</p></div>
+    <div class="benef-card reveal reveal-d4"><span class="benef-icon">💳</span><h3>PIX, Cartão ou Dinheiro</h3><p>Pague como preferir. Praticidade total no seu pedido.</p></div>
+    <div class="benef-card reveal reveal-d5"><span class="benef-icon">🍰</span><h3>Bolos Artesanais</h3><p>Bolos confeitados, moles e fofos feitos com amor e ingredientes frescos.</p></div>
+    <div class="benef-card reveal reveal-d6"><span class="benef-icon">🍬</span><h3>Docinhos Finos</h3><p>15 sabores irresistíveis de brigadeiro, beijinho e muito mais para seu evento.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CARDÁPIO ═══════════════════ -->
+<section class="cardapio-section" id="cardapio">
+  <div class="reveal" style="margin-bottom:40px">
+    <span class="section-tag">🔥 Cardápio Completo</span>
+    <h2 class="section-title">Escolha seu <em>favorito</em></h2>
+  </div>
+
+  <!-- TABS NAV -->
+  <div class="tabs-nav">
+    <button class="tab-btn ativo" onclick="mudarTab('salgados',this)"><span class="tab-icon">🥟</span> Salgadinhos</button>
+    <button class="tab-btn" onclick="mudarTab('bolos',this)"><span class="tab-icon">🎂</span> Bolos</button>
+    <button class="tab-btn" onclick="mudarTab('docinhos',this)"><span class="tab-icon">🍬</span> Docinhos</button>
+    <button class="tab-btn" onclick="mudarTab('kits',this)"><span class="tab-icon">🎁</span> Kits Festa</button>
+    <button class="tab-btn" onclick="mudarTab('bebidas',this)"><span class="tab-icon">🥤</span> Bebidas</button>
+  </div>
+
+  <!-- ───── SALGADINHOS ───── -->
+  <div class="tab-panel ativo" id="panel-salgados">
+    <p class="cat-subtitle">Salgadinhos artesanais feitos na hora · <strong>Coxinha · Pastel · Quibe · Empada · Canudinho · Bolinha de Queijo</strong></p>
+    <div class="produtos-grid" id="grid-salgados"></div>
+  </div>
+
+  <!-- ───── BOLOS ───── -->
+  <div class="tab-panel" id="panel-bolos">
+    <p class="cat-subtitle">Bolos artesanais <strong>assados no dia</strong> · Encomende com 24h de antecedência</p>
+    <div class="produtos-grid" id="grid-bolos"></div>
+  </div>
+
+  <!-- ───── DOCINHOS ───── -->
+  <div class="tab-panel" id="panel-docinhos">
+    <p class="cat-subtitle">15 sabores irresistíveis · <strong>Brigadeiro · Beijinho · Cajuzinho · Bicho de Pé e muito mais!</strong></p>
+    <div class="produtos-grid" id="grid-docinhos"></div>
+  </div>
+
+  <!-- ───── KITS FESTA ───── -->
+  <div class="tab-panel" id="panel-kits">
+    <p class="cat-subtitle">Tudo que você precisa para a festa perfeita · <strong>Salgados + Doces + Bolo + Bebida</strong></p>
+    <div class="produtos-grid" id="grid-kits"></div>
+  </div>
+
+  <!-- ───── BEBIDAS ───── -->
+  <div class="tab-panel" id="panel-bebidas">
+    <p class="cat-subtitle">Bebidas geladas para acompanhar · <strong>Refrigerantes · Águas</strong></p>
+    <div class="produtos-grid" id="grid-bebidas"></div>
+  </div>
+</section>
+
+<!-- AVALIAÇÕES -->
+<div class="avaliacoes-wrap" id="avaliacoes">
+  <div class="avaliacoes-inner">
+    <div class="reveal" style="text-align:center">
+      <span class="section-tag">⭐ Clientes Felizes</span>
+      <h2 class="section-title">O que falam <em>de nós</em></h2>
+    </div>
+    <div class="avaliacoes-grid">
+      <div class="av-card reveal reveal-d1">
+        <div class="av-quote">"</div>
+        <div class="av-stars"><span>★★★★★</span></div>
+        <p class="av-text">Melhor salgado que já pedi em Fortaleza! Atendimento impecável e entrega super rápida. Minha festa foi um sucesso!</p>
+        <div class="av-author"><div class="av-avatar">A</div><div><div class="av-name">Amanda Silva</div><div class="av-role">Cliente fiel · 2 anos</div></div></div>
+      </div>
+      <div class="av-card reveal reveal-d2">
+        <div class="av-quote">"</div>
+        <div class="av-stars"><span>★★★★★</span></div>
+        <p class="av-text">Tudo chegou quentinho, crocante e absurdamente saboroso. Já é o segundo pedido esse mês e não vai ser o último!</p>
+        <div class="av-author"><div class="av-avatar">L</div><div><div class="av-name">Lucas Oliveira</div><div class="av-role">Cliente fiel · 1 ano</div></div></div>
+      </div>
+      <div class="av-card reveal reveal-d3">
+        <div class="av-quote">"</div>
+        <div class="av-stars"><span>★★★★★</span></div>
+        <p class="av-text">Os docinhos são uma obra de arte! 15 sabores diferentes e todos perfeitos. Minha festa ficou incrível! 💛</p>
+        <div class="av-author"><div class="av-avatar">M</div><div><div class="av-name">Mariana Costa</div><div class="av-role">Cliente fiel · 3 anos</div></div></div>
+      </div>
+      <div class="av-card reveal reveal-d4">
+        <div class="av-quote">"</div>
+        <div class="av-stars"><span>★★★★★</span></div>
+        <p class="av-text">O Kit Festa Luxo superou todas as expectativas. Salgados, bolo e doces todos deliciosos. Vale muito cada centavo!</p>
+        <div class="av-author"><div class="av-avatar">R</div><div><div class="av-name">Roberto Mendes</div><div class="av-role">Cliente fiel · 6 meses</div></div></div>
+      </div>
+      <div class="av-card reveal reveal-d5">
+        <div class="av-quote">"</div>
+        <div class="av-stars"><span>★★★★★</span></div>
+        <p class="av-text">Pedi 500 salgados para uma empresa e chegaram todos perfeitos, no horário combinado. Profissionalismo de verdade!</p>
+        <div class="av-author"><div class="av-avatar">C</div><div><div class="av-name">Carla Freitas</div><div class="av-role">Empresa parceira</div></div></div>
+      </div>
+      <div class="av-card reveal reveal-d6">
+        <div class="av-quote">"</div>
+        <div class="av-stars"><span>★★★★★</span></div>
+        <p class="av-text">O bolo confeitado que encomendei estava lindo e delicioso. A Lene caprichou demais no recheio e na decoração! 🎂</p>
+        <div class="av-author"><div class="av-avatar">J</div><div><div class="av-name">Juliana Peixoto</div><div class="av-role">Cliente fiel · 2 anos</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Lene Salgados Delivery</div>
+  <div class="footer-links">
+    <a href="https://wa.me/5585997376419" target="_blank"><i class="fa-brands fa-whatsapp"></i> (85) 99737-6419</a>
+    <a href="https://instagram.com/lenesalgadosdelivery" target="_blank"><i class="fa-brands fa-instagram"></i> @lenesalgadosdelivery</a>
+    <a href="#inicio"><i class="fa-solid fa-arrow-up"></i> Voltar ao topo</a>
+  </div>
+  <p class="footer-copy">© 2026 Lene Salgados Delivery · Todos os direitos reservados · Fortaleza, CE</p>
+</footer>
+
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- CART -->
+<div class="carrinho" id="carrinho">
+  <div class="carrinho-header">
+    <h2>🛒 Seu Pedido</h2>
+    <button class="btn-fechar" onclick="fecharCarrinho()">✕</button>
+  </div>
+  <div class="carrinho-lista" id="listaCarrinho">
+    <div class="carrinho-vazio">
+      <i class="fa-solid fa-basket-shopping"></i>
+      <p>Carrinho vazio!<br>Escolha seus favoritos 😋</p>
+    </div>
+  </div>
+  <div class="carrinho-footer">
+    <div class="total-linha" id="linha-entrega" style="display:none;margin-bottom:8px">
+      <span class="total-label" style="font-size:.68rem">Subtotal</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--muted2);font-weight:600">R$ <span id="subtotal">0,00</span></span>
+    </div>
+    <div class="total-linha" id="linha-taxa" style="display:none;margin-bottom:8px">
+      <span class="total-label" style="font-size:.68rem;display:flex;align-items:center;gap:5px"><i class="fa-solid fa-motorcycle" style="color:var(--gold);font-size:.7rem"></i> Taxa de Entrega</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--gold);font-weight:700">R$ 3,00</span>
+    </div>
+    <div class="total-linha">
+      <span class="total-label">Total do Pedido</span>
+      <span class="total-val">R$ <span id="total">0,00</span></span>
+    </div>
+    <div class="pagamentos">
+      <button class="pay-btn pix" onclick="irParaPagamento('pix')"><span class="pay-icon">💚</span><span>PIX</span></button>
+      <button class="pay-btn" onclick="irParaPagamento('cartao')"><span class="pay-icon">💳</span><span>Cartão</span></button>
+      <button class="pay-btn" onclick="irParaPagamento('dinheiro')"><span class="pay-icon">💵</span><span>Dinheiro</span></button>
+    </div>
+    <button class="btn-finalizar" onclick="irParaPagamento('pix')">
+      <i class="fa-solid fa-qrcode"></i> Escolha a forma de pagamento
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <span id="toastMsg">Item adicionado!</span>
+</div>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+/* ─── CONFIG ─── */
+const LOJA_FECHADA_MANUAL = false; // FECHAR LOJA MANUAL — mude para true para fechar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const HORA_ABERTURA  = 9;
+const HORA_FECHAMENTO = 20;
+const DIAS_FECHADOS  = [2]; // terça
+
+/* ─── ESTADO GLOBAL DA LOJA ─── */
+let lojaAberta = true;
+
+/* ─── VERIFICA SE LOJA ESTÁ ABERTA ─── */
+function estaAberta(){
+  if(LOJA_FECHADA_MANUAL) return false;
+  const n=new Date(), d=n.getDay(), h=n.getHours()+n.getMinutes()/60;
+  return !DIAS_FECHADOS.includes(d) && h>=HORA_ABERTURA && h<HORA_FECHAMENTO;
+}
+
+/* ─── APLICA ESTADO FECHADO/ABERTO NA UI ─── */
+function aplicarEstadoLoja(aberta){
+  lojaAberta = aberta;
+
+  // Overlay de loja fechada
+  const overlay = document.getElementById('lojaFechadaOverlay');
+  if(!aberta){
+    overlay.classList.add('ativo');
+    document.body.classList.add('loja-fechada');
+  } else {
+    overlay.classList.remove('ativo');
+    document.body.classList.remove('loja-fechada');
+  }
+
+  // Botão "Ver Cardápio" no hero
+  const btnCardapio = document.getElementById('btnVerCardapio');
+  if(btnCardapio){
+    if(!aberta){
+      btnCardapio.innerHTML = '<i class="fa-solid fa-moon"></i> Loja Fechada';
+      btnCardapio.style.cssText = 'background:#2a2a2a!important;color:#666!important;cursor:not-allowed!important;opacity:.65!important;box-shadow:none!important;pointer-events:none!important;';
+    } else {
+      btnCardapio.innerHTML = '<i class="fa-solid fa-fire"></i> Ver Cardápio';
+      btnCardapio.style.cssText = '';
+    }
+  }
+
+  // Atualiza todos os btn-add já renderizados
+  atualizarBotoesCarrinho();
+}
+
+/* ─── ATUALIZA TEXTO DOS BOTÕES APÓS RENDER ─── */
+function atualizarBotoesCarrinho(){
+  document.querySelectorAll('.btn-add').forEach(btn => {
+    if(!lojaAberta){
+      btn.innerHTML = '<i class="fa-solid fa-moon"></i> Loja Fechada';
+    } else {
+      // Restaura o texto original se o botão foi alterado
+      if(btn.innerHTML.includes('Loja Fechada')){
+        btn.innerHTML = '<i class="fa-solid fa-plus"></i> Adicionar ao Pedido';
+      }
+    }
+  });
+}
+
+/* ─── BANNER ─── */
+function verificarHorario(){
+  const b=document.getElementById('horario-banner'),
+        p=document.getElementById('hb-pill'),
+        m=document.getElementById('hb-msg');
+  if(LOJA_FECHADA_MANUAL){
+    b.className='manual-fechado';p.textContent='Fechado';
+    m.textContent='Loja temporariamente fechada — em breve de volta!';
+    aplicarEstadoLoja(false);return;
+  }
+  const n=new Date(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60,
+        fechado=DIAS_FECHADOS.includes(d),ok=h>=HORA_ABERTURA&&h<HORA_FECHAMENTO;
+  if(!fechado&&ok){
+    b.className='aberto';p.textContent='Aberto';m.textContent='Estamos abertos e prontos para atender! 🔥';
+    aplicarEstadoLoja(true);
+  }else{
+    b.className='fechado';p.textContent='Fechado';
+    if(fechado)m.textContent='Hoje não abrimos — voltamos amanhã com tudo! 🥐';
+    else if(h<HORA_ABERTURA)m.textContent=`Abrimos hoje às ${HORA_ABERTURA}h — até lá! ☕`;
+    else m.textContent=`Fechamos às ${HORA_FECHAMENTO}h — nos vemos amanhã! 🌙`;
+    aplicarEstadoLoja(false);
+  }
+}
+verificarHorario();
+setInterval(verificarHorario,60000);
+
+/* ─── DATA ─── */
+
+const SALGADOS = [
+  {nome:'500 Salgadinhos Premium',
+  preco:150,img:'./imgs/100salgados.jpg',
+  desc:'Coxinha, quibe, pastel, empada e canudinho. Ideal para grandes eventos.',
+  badge:'🔥 Mais Pedido'},
+
+  {nome:'400 Salgadinhos Premium',
+  preco:124,img:'./imgs/100salgados.jpg',
+  desc:'Mix variado dos melhores sabores da casa para a sua festa.',
+  badge:''},
+
+  {nome:'300 Salgadinhos Premium',
+  preco:96,img:'./imgs/100salgados.jpg',
+  desc:'Variedade irresistível para aniversários e reuniões especiais.',
+  badge:''},
+
+  {nome:'200 Salgadinhos Premium',
+  preco:66,img:'./imgs/100salgados.jpg',
+  desc:'Perfeito para reuniões familiares e confraternizações.',
+  badge:''},
+
+  {nome:'100 Salgadinhos Premium',
+  preco:30,img:'./imgs/100salgados.jpg',
+  desc:'Coxinha, pastel, candinho e sabores especiais da casa.',
+  badge:'🔥 Mais Pedido'},
+
+  {nome:'50 Salgadinhos Premium',
+  preco:18,img:'./imgs/50salgadinhos.jfif',
+  desc:'Combo perfeito para família se reunir e curtir.',
+  badge:''}
+
+];
+
+const BOLOS = [
+  {nome:'Bolo Confeitado',
+  preco:89,img:'./imgs/kit1.png',
+  desc:'Bolo lindo decorado com glacê, confeitos e acabamento profissional. Encomende com 24h.',
+  badge:'👑 Premium'},
+
+  {nome:'Bolo Mole',
+  preco:65,img:'./imgs/kit2.png',
+  desc:'Bolo úmido e cremoso, recheado com brigadeiro ou doce de leite. Irresistível!',
+  badge:''},
+
+  {nome:'Bolo Fofo',
+  preco:72,img:'./imgs/kit3.png',
+  desc:'Massa leve e aerada, recheada e coberta. Sucesso garantido em qualquer festa.',
+  badge:'⭐ Favorito'},
+
+  {nome:'Bolo Afogadilho',
+  preco:70,img:'./imgs/kitP.jpg',
+  desc:'Bolo tradicional afogado em calda especial da casa. Sabor único e inesquecível.',
+  badge:''}
+
+];
+
+const DOCINHOS_SABORES = [
+  'Brigadeiro Tradicional','Brigadeiro de Ninho','Brigadeiro de Maracujá','Brigadeiro de Amendoim',
+  'Brigadeiro de Limão','Beijinho de Coco','Cajuzinho','Bicho de Pé',
+  'Brigadeiro de Nutella','Romeu e Julieta','Brigadeiro de Pistache','Trufa de Chocolate Belga',
+  'Brigadeiro de Churros','Beijinho de Morango','Copinho de Nutella'
+];
+
+const DOCINHOS = [
+  {qtd:100,preco:65},
+  {qtd:200,preco:120},
+  {qtd:300,preco:175},
+  {qtd:400,preco:228},
+  {qtd:500,preco:280},
+];
+
+const KITS = [
+  {
+    nome:'Kit Festa 1 — Básico',emoji:'🎈',preco:132,
+    desc:'O básico perfeito para festinhas e reuniões com a família.',
+    inclui:['100 Salgadinhos','50 Docinhos Mix','1 Bolo Mole','2 Refrigerantes 2L'],
+    img:'./imgs/kit1.png'
+  },
+  {
+    nome:'Kit Festa 2 — Completo',emoji:'🎉',preco:235,
+    desc:'Kit completo para deixar sua festa incrível do começo ao fim.',
+    inclui:['200 Salgadinhos','100 Docinhos Mix','1 Bolo Confeitado','4 Refrigerantes 2L','2 Águas'],
+    img:'./imgs/kit2.png'
+  },
+  {
+    nome:'Kit Festa 3 — Premium',emoji:'✨',preco:348,
+    desc:'Experiência premium para festas que merecem o melhor.',
+    inclui:['300 Salgadinhos','200 Docinhos Mix','1 Bolo Confeitado Decorado','6 Refrigerantes 2L','4 Águas'],
+    img:'./imgs/kit3.png'
+  },
+  {
+    nome:'Kit Festa 4 — Luxo Total',emoji:'👑',preco:485,
+    desc:'O kit definitivo para eventos grandiosos e inesquecíveis.',
+    inclui:['500 Salgadinhos','300 Docinhos Mix','2 Bolos Confeitados','10 Refrigerantes 2L','6 Águas','Surpresa especial'],
+    img:'./imgs/kitP.jpg'
+  }
+];
+
+const BEBIDAS = [
+  {nome:'Coca-Cola 1L',preco:7,img:'./imgs/kit1.png',desc:'A clássica gelada para acompanhar o seu pedido.',badge:'🥤 1 Litro'},
+  {nome:'Guaraná Antarctica 1L',preco:7,img:'./imgs/kit1.png',desc:'O guaraná mais pedido do Brasil, geladinho.',badge:'🥤 1 Litro'},
+  {nome:'Fanta Laranja 1L',preco:7,img:'./imgs/kit1.png',desc:'Sabor cítrico e refrescante para animar a festa.',badge:'🥤 1 Litro'},
+  {nome:'Sprite 1L',preco:7,img:'./imgs/kit1.png',desc:'Refrescante e leve, combina com tudo.',badge:'🥤 1 Litro'},
+  {nome:'Coca-Cola 2L',preco:12,img:'./imgs/kit2.png',desc:'A favorita para toda a família, tamanho família.',badge:'🍾 2 Litros'},
+  {nome:'Guaraná Antarctica 2L',preco:12,img:'./imgs/kit2.png',desc:'Para matar a sede de todo mundo na festa.',badge:'🍾 2 Litros'},
+  {nome:'Fanta Laranja 2L',preco:12,img:'./imgs/kit2.png',desc:'Grande, gelada e deliciosa para compartilhar.',badge:'🍾 2 Litros'},
+  {nome:'Sprite 2L',preco:12,img:'./imgs/kit2.png',desc:'Leveza e sabor para acompanhar seus salgados.',badge:'🍾 2 Litros'},
+  {nome:'Coca-Cola Lata 350ml',preco:5,img:'./imgs/kit3.png',desc:'Prática e gelada, ideal para pedidos individuais.',badge:'🥫 Lata 350ml'},
+  {nome:'Guaraná Lata 350ml',preco:5,img:'./imgs/kit3.png',desc:'Refrescante na latinha, perfeita para qualquer hora.',badge:'🥫 Lata 350ml'},
+  {nome:'Fanta Lata 350ml',preco:5,img:'./imgs/kit3.png',desc:'A famosa fanta na lata, sempre uma boa pedida.',badge:'🥫 Lata 350ml'},
+  {nome:'Sprite Lata 350ml',preco:5,img:'./imgs/kit3.png',desc:'Leveza numa lata. Combina com qualquer sabor.',badge:'🥫 Lata 350ml'},
+  {nome:'Água Mineral 500ml',preco:3,img:'./imgs/kitP.jpg',desc:'Água mineral natural geladinha. Simples e essencial.',badge:'💧 Água'},
+  {nome:'Água Mineral 1,5L',preco:5,img:'./imgs/kitP.jpg',desc:'Garrafão de água mineral para a família toda.',badge:'💧 Água'},
+  {nome:'Água com Gás 500ml',preco:4,img:'./imgs/kitP.jpg',desc:'Água com gás refrescante para quem gosta de diferente.',badge:'💧 Água'},
+  {nome:'Água com Gás 1,5L',preco:6,img:'./imgs/kitP.jpg',desc:'Garrafa grande de água com gás para compartilhar.',badge:'💧 Água'},
+];
+
+/* ─── RENDER FUNCTIONS ─── */
+
+function btnAddHtml(nomeEnc, preco){
+  if(!lojaAberta){
+    return `<button class="btn-add" style="background:#2a2a2a;color:#555;cursor:not-allowed;pointer-events:none;" disabled>
+      <i class="fa-solid fa-moon"></i> Loja Fechada
+    </button>`;
+  }
+  return `<button class="btn-add" onclick="adicionarItem('${nomeEnc}',${preco})">
+    <i class="fa-solid fa-plus"></i> Adicionar ao Pedido
+  </button>`;
+}
+
+function cardProduto(p,idx,categoria){
+  const badgeHtml = p.badge
+    ? `<div class="${p.badge.includes('Premium')||p.badge.includes('Favorito')||p.badge.includes('Mais')?'badge-hot':'badge-novo'}">${p.badge}</div>`
+    : '';
+  return `
+  <div class="produto-card reveal">
+    <div class="card-img-wrap ${categoria==='bebidas'?'drink-card':''}">
+      <img src="${p.img}" alt="${p.nome}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x230/181520/E8A020?text=${encodeURIComponent(p.nome)}'">
+      <div class="card-img-overlay"></div>
+      ${badgeHtml}
+      <div class="badge-preco"><small>R$</small>${p.preco.toFixed(2).replace('.',',')}</div>
+    </div>
+    <div class="card-body">
+      <h3>${p.nome}</h3>
+      <p>${p.desc}</p>
+      ${btnAddHtml(encodeURIComponent(p.nome), p.preco)}
+    </div>
+  </div>`;
+}
+
+function renderSalgados(){
+  document.getElementById('grid-salgados').innerHTML =
+    SALGADOS.map((p,i)=>cardProduto(p,i,'salgados')).join('');
+  observeReveal();
+}
+
+function renderBolos(){
+  document.getElementById('grid-bolos').innerHTML =
+    BOLOS.map((p,i)=>cardProduto(p,i,'bolos')).join('');
+  observeReveal();
+}
+
+function renderDocinhos(){
+  const grid = document.getElementById('grid-docinhos');
+  grid.innerHTML = DOCINHOS.map(d=>`
+  <div class="produto-card reveal">
+    <div class="card-img-wrap">
+      <img src="./imgs/kit1.png" alt="Docinhos ${d.qtd}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x230/181520/E8A020?text=Docinhos+${d.qtd}'">
+      <div class="card-img-overlay"></div>
+      <div class="badge-hot">🍬 ${d.qtd} unid.</div>
+      <div class="badge-preco"><small>R$</small>${d.preco.toFixed(2).replace('.',',')}</div>
+    </div>
+    <div class="card-body">
+      <h3>${d.qtd} Docinhos Sortidos</h3>
+      <p>Escolha até 3 sabores da nossa seleção exclusiva de 15 delícias artesanais.</p>
+      <div class="flavor-wrap">
+        <span class="flavor-label">🍬 Escolha os sabores</span>
+        <div class="flavor-grid" id="flavors-${d.qtd}">
+          ${DOCINHOS_SABORES.map((s,i)=>`<span class="flavor-chip" data-qtd="${d.qtd}" data-idx="${i}" onclick="toggleFlavor(this,'${d.qtd}')">${s}</span>`).join('')}
+        </div>
+      </div>
+      ${lojaAberta
+        ? `<button class="btn-add" onclick="adicionarDocinhos(${d.qtd},${d.preco})"><i class="fa-solid fa-plus"></i> Adicionar ao Pedido</button>`
+        : `<button class="btn-add" style="background:#2a2a2a;color:#555;cursor:not-allowed;pointer-events:none;" disabled><i class="fa-solid fa-moon"></i> Loja Fechada</button>`
+      }
+    </div>
+  </div>`).join('');
+  observeReveal();
+}
+
+const selectedFlavors = {};
+function toggleFlavor(el, qtd){
+  if(!lojaAberta) return;
+  if(!selectedFlavors[qtd]) selectedFlavors[qtd]=[];
+  const name = el.textContent;
+  if(el.classList.contains('sel')){
+    el.classList.remove('sel');
+    selectedFlavors[qtd]=selectedFlavors[qtd].filter(s=>s!==name);
+  } else {
+    if(selectedFlavors[qtd].length>=3){mostrarToast('Máximo 3 sabores por pedido 😊');return;}
+    el.classList.add('sel');
+    selectedFlavors[qtd].push(name);
+  }
+}
+function adicionarDocinhos(qtd,preco){
+  if(!lojaAberta){mostrarToast('A loja está fechada no momento 🌙');return;}
+  const flavs = selectedFlavors[qtd]||[];
+  const nomeSabores = flavs.length>0 ? ` (${flavs.join(', ')})` : ' (mix variado)';
+  adicionarItem(encodeURIComponent(`${qtd} Docinhos${nomeSabores}`),preco);
+}
+
+function renderKits(){
+  const grid = document.getElementById('grid-kits');
+  grid.innerHTML = KITS.map(k=>`
+  <div class="combo-card reveal">
+    <div class="combo-header">
+      <span class="combo-emoji">${k.emoji}</span>
+      <div class="combo-name">${k.nome}</div>
+      <div class="combo-desc">${k.desc}</div>
+      <div class="combo-price">R$ ${k.preco.toFixed(2).replace('.',',')}<small>kit completo</small></div>
+    </div>
+    <div class="combo-body">
+      <div class="combo-includes">
+        <p>Inclui:</p>
+        <div class="combo-tags">
+          ${k.inclui.map(i=>`<span class="combo-tag">✓ ${i}</span>`).join('')}
+        </div>
+      </div>
+      ${btnAddHtml(encodeURIComponent(k.nome), k.preco)}
+    </div>
+  </div>`).join('');
+  observeReveal();
+}
+
+function renderBebidas(){
+  document.getElementById('grid-bebidas').innerHTML =
+    BEBIDAS.map((p,i)=>cardProduto(p,i,'bebidas')).join('');
+  observeReveal();
+}
+
+/* ─── TABS ─── */
+function mudarTab(id, btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('ativo'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('ativo'));
+  document.getElementById('panel-'+id).classList.add('ativo');
+  btn.classList.add('ativo');
+  observeReveal();
+}
+
+/* ─── CART ─── */
+let carrinho = [];
+function adicionarItem(nomeEnc, preco){
+  if(!lojaAberta){mostrarToast('A loja está fechada no momento 🌙');return;}
+  const nome = decodeURIComponent(nomeEnc);
+  carrinho.push({nome, preco});
+  atualizarCarrinho();
+  mostrarToast(`${nome.substring(0,30)}${nome.length>30?'…':''} adicionado! 🔥`);
+  abrirCarrinho();
+}
+
+function removerItem(i){
+  carrinho.splice(i,1);
+  atualizarCarrinho();
+}
+
+const TAXA_ENTREGA = 3.00;
+
+function atualizarCarrinho(){
+  const lista=document.getElementById('listaCarrinho'),
+        cnt=document.getElementById('cartCount');
+  if(!carrinho.length){
+    lista.innerHTML=`<div class="carrinho-vazio"><i class="fa-solid fa-basket-shopping"></i><p>Carrinho vazio!<br>Escolha seus favoritos 😋</p></div>`;
+    cnt.style.display='none';
+    document.getElementById('total').textContent='0,00';
+    document.getElementById('linha-entrega').style.display='none';
+    document.getElementById('linha-taxa').style.display='none';
+    return;
+  }
+  let subtotal=0;lista.innerHTML='';
+  carrinho.forEach((item,i)=>{
+    subtotal+=item.preco;
+    const d=document.createElement('div');d.className='item-carrinho';
+    d.innerHTML=`<div class="item-info"><h4>${item.nome}</h4><p>R$ ${item.preco.toFixed(2).replace('.',',')}</p></div><button class="btn-remover" onclick="removerItem(${i})"><i class="fa-solid fa-trash"></i></button>`;
+    lista.appendChild(d);
+  });
+  const totalFinal = subtotal + TAXA_ENTREGA;
+  document.getElementById('subtotal').textContent=subtotal.toFixed(2).replace('.',',');
+  document.getElementById('total').textContent=totalFinal.toFixed(2).replace('.',',');
+  document.getElementById('linha-entrega').style.display='flex';
+  document.getElementById('linha-taxa').style.display='flex';
+  cnt.style.display='flex';cnt.textContent=carrinho.length;
+}
+
+function abrirCarrinho(){document.getElementById('carrinho').classList.add('ativo');document.getElementById('cartOverlay').classList.add('ativo')}
+function fecharCarrinho(){document.getElementById('carrinho').classList.remove('ativo');document.getElementById('cartOverlay').classList.remove('ativo')}
+
+/* ─── PAGAMENTO ─── */
+function irParaPagamento(tipo){
+  if(!lojaAberta){mostrarToast('A loja está fechada no momento 🌙');return;}
+  if(!carrinho.length){mostrarToast('Carrinho vazio! Adicione itens primeiro 😊');return;}
+  const subtotal = carrinho.reduce((s,i)=>s+i.preco,0);
+  const total    = subtotal + TAXA_ENTREGA;
+  const itens    = encodeURIComponent(JSON.stringify(carrinho));
+  const params   = `?total=${total.toFixed(2)}&subtotal=${subtotal.toFixed(2)}&taxa=${TAXA_ENTREGA.toFixed(2)}&itens=${itens}`;
+  const paginas = {
+    pix:     'pagamento.html',
+    cartao:  'cartao.html',
+    dinheiro:'dinheiro.html'
+  };
+  window.location.href = (paginas[tipo] || 'pagamento.html') + params;
+}
+
+function finalizarPedido(){ irParaPagamento('pix'); }
+
+/* ─── TOAST ─── */
+let toastT;
+function mostrarToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');clearTimeout(toastT);
+  toastT=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ─── UTILS ─── */
+function verCardapio(){
+  if(!lojaAberta){mostrarToast('A loja está fechada no momento 🌙');return;}
+  document.getElementById('cardapio').scrollIntoView({behavior:'smooth'});
+}
+
+window.addEventListener('scroll',()=>{
+  const b=document.getElementById('scrollTop');
+  window.scrollY>400?b.classList.add('visible'):b.classList.remove('visible');
+});
+
+function observeReveal(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>io.observe(el));
+}
+
+/* ─── INIT ─── */
+renderSalgados();
+renderBolos();
+renderDocinhos();
+renderKits();
+renderBebidas();
+atualizarCarrinho();
+observeReveal();
+// Re-aplica o estado após render (verificarHorario já foi chamado antes, mas os grids ainda não existiam)
+aplicarEstadoLoja(estaAberta());
+</script>
+</body>
+</html>
